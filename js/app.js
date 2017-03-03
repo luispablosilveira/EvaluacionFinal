@@ -52,43 +52,6 @@ var Calculadora = {
 		document.getElementById("igual").onclick = this.procesoTecla;
 
 	}
-
-  /*,
-  cambiarComportamientoBotones: function(claseBotones){
-    var botonesPagina = document.getElementsByClassName(claseBotones);
-    for (var i = 0; i < botonesPagina.length; i++) {
-      botonesPagina[i].onmouseover = this.eventoColorBotones;
-      botonesPagina[i].onmouseout = this.eventoRetornarColorBotones;
-    }
-  },
-  eventoColorBotones: function(event){
-    cambiarColorFondo(event.target);
-  },
-  eventoRetornarColorBotones: function(event){
-    restaurarColorFondo(event.target);
-  },
-  eventoMostrarContenido: function(event){
-    mostrarContenido(event.target);
-  },
-  eventoAddTexto: function(event){
-    agregarParrafo(event.target);
-  },
-  asignarEventoMostrar: function(){
-    var bloques = document.querySelectorAll("[class^='item-']");
-    for (var i = 0; i < bloques.length; i++) {
-      bloques[i].onclick = this.eventoMostrarContenido;
-      bloques[i].ondblclick = this.eventoAddTexto;
-    }
-  },
-  eventoSonido: function(event){
-    alert(event.which);
-    if (event.which==48) {
-      desactivarSonido();
-    }else if (event.which==57) {
-      activarSonido();
-    }
-  }
-  */
 }
 
 Calculadora.init();
