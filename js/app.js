@@ -5,85 +5,71 @@ function aumentarTecla(elemento){
 	elemento.setAttribute("style", "transform:scale(1,1)")
 }
 function procesarTecla(elemento){
-	alert(elemento.id);
-	/*
-	var worker = new Worker('doHtml.js')
-	worker.postMessage(elemento)
-	worker.addEventListener('message', function(e){
-		var result = e.data
+	switch(elemento.id){
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			alert("Numero");
+			break;
 
-		// Cargo el display
-		var display = document.getElementById('display')
-		display.innerHTML = result
+		case 'on':
+			alert("on");
+			break;
 
-		alert("Resultado : " + result)
-		// Termino el worker
-		worker.terminate()
-	})
-	*/
+		case 'sign':
+			alert("sign");
+			break;
+
+		case 'menos':
+		case 'mas':
+		case 'por':
+		case 'dividido':
+			alert("Operador");
+			break;
+
+
+		case 'punto':
+				alert("punto");
+				break;
+
+		case 'igual':
+			alert("igual");
+			break;
+
+		default:
+			break;
+	}
 }
+
 var Calculadora = {
-	/*
 	init: function(){
-		var self = this
-		var cero = document.getElementById("0")
-		cero.addEventListener("click",function(){
-			self.numero("0")
-		})
-		cero.addEventListener("mousedown", function(){
-			cero.setAttribute("style","transform:scale(0.95,0.95)")
-		})
-		cero.addEventListener("mouseup", function(){
-			cero.setAttribute("style","transform:scale(1,1)")
-		})
-	},
-	*/
 
-  init: function(){
-		/*
-		var self = this
-		var numeroCero = document.getElementById("0")
+		// Busco las teclas, y a cada uno le asocio los eventos que necesito
+		var teclasCalculadora = document.getElementsByClassName("tecla");
 
-		numeroCero.addEventListener("mousedown", function(){
-			numeroCero.setAttribute("style","transform:scale(0.95,0.95)")
-		})
-		numeroCero.addEventListener("mouseup	", function(){
-			numeroCero.setAttribute("style","transform:scale(1,1)")
-		})
-		*/
-		this.agrandarAchicarBotones("tecla");
-		//this.eventosTeclas();
-  },
-
-  achicarTecla: function(event){
-		reducirTecla(event);
-  },
-  restaurarTecla: function(event){
-		aumentarTecla(event);
-  },
-  agrandarAchicarBotones: function(clase){
-		var teclasCalculadora = document.getElementsByClassName(clase);
-		//var tecla;
 		for (var i = 0; i < teclasCalculadora.length; i++) {
 			var tecla = teclasCalculadora[i]
 
 			tecla.addEventListener("mousedown", function(){
-				tecla.setAttribute("style","transform:scale(0.95,0.95)")
+				reducirTecla(this)
 			})
 
 			tecla.addEventListener("mouseup", function(){
-				tecla.setAttribute("style","transform:scale(1,1)")
+				aumentarTecla(this);
 			})
 
-			/*
-      teclasCalculadora[i].onmousedown 	= this.achicarTecla;
-      teclasCalculadora[i].onmouseup		= this.restaurarTecla;
-			*/
+			tecla.addEventListener("click", function(){
+				procesarTecla(this);
+			})
     }
   },
-	procesoTecla: function(event){
-		procesarTecla(event.target);
-	},
 	eventosTeclas: function(){
 		// Proceso las teclas numéricas
 		document.getElementById("0").onclick = this.procesoTecla;
