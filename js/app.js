@@ -1,3 +1,9 @@
+var display = document.getElementById("display");
+
+var numeroUno;
+ver numeroDos;
+var resultado;
+
 function reducirTecla(elemento){
 	elemento.setAttribute("style", "transform:scale(0.95,0.95)")
 }
@@ -16,15 +22,15 @@ function procesarTecla(elemento){
 		case '7':
 		case '8':
 		case '9':
-			alert("Numero");
+			numero(elemento.id);
 			break;
 
 		case 'on':
-			alert("on");
+			on();
 			break;
 
 		case 'sign':
-			alert("sign");
+			signo();
 			break;
 
 		case 'menos':
@@ -36,7 +42,7 @@ function procesarTecla(elemento){
 
 
 		case 'punto':
-				alert("punto");
+				punto();
 				break;
 
 		case 'igual':
@@ -47,7 +53,32 @@ function procesarTecla(elemento){
 			break;
 	}
 }
-
+function numero(valor){
+		if (display.innerHTML == "0"){
+			display.innerHTML = valor;
+		}else{
+			display.innerHTML += valor;
+		}
+}
+function on(){
+	numeroUno = 0;
+	numeroDos = 0;
+	resultado = 0;
+	display.innerHTML = "0";
+}
+function punto(){
+	
+}
+function signo(){
+	if (display.innerHTML != "0"){
+		var valor = display.innerHTML;
+		if (valor.substring(0, 1) == '-'){
+			display.innerHTML = valor.substring(1, (valor.length));
+		}else{
+			display.innerHTML = '-' + valor;
+		}
+	}
+}
 var Calculadora = {
 	init: function(){
 
