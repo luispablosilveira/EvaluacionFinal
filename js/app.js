@@ -6,6 +6,10 @@ var numeroDos					= "";
 var resultado					= "";
 var ultimoDigitado		= "";
 
+var valorUno 		= "";
+var valorDos 		= "";
+var operadorEje = "";
+
 function reducirTecla(elemento){
 	elemento.setAttribute("style", "transform:scale(0.95,0.95)")
 }
@@ -82,7 +86,6 @@ function on(){
 }
 function punto(){
 	// Si no tiene punto y el largo es menor que 8 agrego el punto
-	alert(display.innerHTML.indexOf("."));
 	if (display.innerHTML.indexOf(".") == -1){
 		display.innerHTML += ".";
 	}
@@ -98,65 +101,84 @@ function signo(){
 	}
 }
 function operador(oper){
-	// No se puede haber ejecutado un operador anteriormente
-	if (operadorEjecutado == ""){
-		numeroUno = display.innerHTML;
-		operadorEjecutado = oper;
-		display.innerHTML = "";
-	}
-	else{
-		alert("Esta digitando el segundo numero, solo se acepta el igual o limpiar");
+	if (numeroUno != "" || display.innerHTML != "0"){
+		// No se puede haber ejecutado un operador anteriormente
+		if (operadorEjecutado == ""){
+			numeroUno 				= display.innerHTML;
+			operadorEjecutado = oper;
+			display.innerHTML = "";
+		}
+		else{
+			alert("Esta digitando el segundo numero, solo se acepta el igual o limpiar");
+		}
 	}
 }
+
 function igual(){
+	// Paso los valores para variables auxiliares y limpio las variables actuales
 	if (ultimoDigitado == "igual"){
 			calcularResultado();
 	}else{
 		if (numeroDos == ""){
 			numeroDos = display.innerHTML;
 		}
-
 		calcularResultado();
 	}
-
-
 	display.innerHTML = resultado;
 
-
+	inicializoValores();
 }
 function calcularResultado(){
-	switch(operadorEjecutado){
+	if (ultimoDigitado == "igual"){
+		// Utilizo los mismos valores actuales
+	}
+	else{
+		// Cargo los nuevos valores
+		valorUno 		= numeroUno;
+		valorDos 		= numeroDos;
+		operadorEje = operadorEjecutado;
+	}
+
+	var error = "N";
+	switch(operadorEje){
 		case '+':
-			resultado = parseFloat(numeroUno) + parseFloat(numeroDos);
+			resultado = parseFloat(valorUno) + parseFloat(valorDos);
 			break;
 
 		case '-':
-			resultado = parseFloat(numeroUno) - parseFloat(numeroDos);
+			resultado = parseFloat(valorUno) - parseFloat(valorDos);
 			break;
 
 		case '*':
-			resultado = parseFloat(numeroUno) * parseFloat(numeroDos);
+			resultado = parseFloat(valorUno) * parseFloat(valorDos);
 			break;
 
 	  case '/':
 			if (numeroDos != "0"){
-				resultado = parseFloat(numeroUno) / parseFloat(numeroDos);
+				resultado = parseFloat(valorUno) / parseFloat(valorDos);
 			}else{
+				error = "S";
 				alert("No se puede dividir entre 0");
 			}
 			break;
 
 		default:
+		error = "S";
 			break;
 	}
-
-	numeroUno = resultado;
+	if (error == "N"){
+		var strResultado = resultado.toString();
+		if (strResultado.length >= 8){
+			resultado = strResultado.substring((strResultado.length - 8));
+		}
+		valorUno = resultado;
+	}
 }
 function inicializoValores(){
-	numeroUno = "";
-	numeroDos = "";
-	operador 	= "";
-	resultado = "";
+	numeroUno					= "";
+	operadorEjecutado	= "";
+	numeroDos					= "";
+	resultado					= "";
 }
 
 var Calculadora = {
@@ -212,19 +234,3 @@ var Calculadora = {
 }
 
 Calculadora.init();
-/*
-var calculadora = {
-	init: function(){
-		var self = this
-		var cero = document.getElementById("0")
-		cero.addEventListener("click",function(){
-			self.numero("0")
-		})
-		cero.addEventListener("mousedown", function(){
-			cero.setAttribute("style","transform:scale(0.95,0.95)")
-		})
-		cero.addEventListener("mouseout", function(){
-			cero.setAttribute("style","transform:scale(1,1)")
-		})
-	}
-*/
